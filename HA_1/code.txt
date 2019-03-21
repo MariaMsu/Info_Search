@@ -1,0 +1,195 @@
+# coding: utf-8
+
+import sys
+from time import sleep
+
+MAX_LINK_NUMBER = 1000
+ALPHA = 0.1
+
+
+# INPUT_FILE_1 - Q_Link
+def extract_features(INPUT_FILE_1, INPUT_FILE_2, OUTPUT_FILE):
+    print INPUT_FILE_1
+    print INPUT_FILE_2
+    print OUTPUT_FILE
+    # 1 len :
+    segments = {}
+
+    # 2 mane_list :
+    param_name = {}
+
+    # 3 "param=value" :
+    param = {}
+
+    # 4a (index, name) :
+    segment_name = {}
+
+    # 4b index : 1
+    segment_0_9 = {}
+
+    # 4c (index, string) :
+    segment_substr_0_9 = {}
+
+    # 4d (index,  extension) :
+    segment_ext = {}
+
+    # todo 4e
+
+    # 4d (index,  len) :
+    segment_len = {}
+
+    def get_link_features(link):
+        # prefix
+        prefix_slash = 0
+        prefix_size = 0
+        for position, symbol in enumerate(link):
+            if symbol == "/":
+                prefix_slash += 1
+                if prefix_slash == 3:
+                    prefix_size = position + 1
+                    break
+
+        # path
+        _segment_name = ""
+        _string_without_digits = ""
+        _path_size = 0
+        _last_dot_place = 0
+        _last_slash_place = 0
+        _slash = 0
+
+        for position, symbol in enumerate(link[prefix_size:]):
+            if symbol == "/":
+                segment_name.setdefault((_slash, _segment_name), 0)
+                segment_name[(_slash, _segment_name)] += 1
+                segment_substr_0_9.setdefault((_slash, _string_without_digits), 0)
+                segment_substr_0_9[(_slash, _string_without_digits)] += 1
+                if _string_without_digits == "":
+                    segment_0_9.setdefault(_slash, 0)
+                    segment_0_9[_slash] += 1
+                if _last_dot_place != _last_slash_place:
+                    segment_ext.setdefault((_slash, _segment_name[_last_dot_place:position]), 0)
+                    segment_ext[(_slash, _segment_name[_last_dot_place:position])] += 1
+                segment_len.setdefault((_slash, position - _last_slash_place), 0)
+                segment_len[(_slash, position - _last_slash_place)] += 1
+                _slash += 1
+                _segment_name = ""
+                _string_without_digits = ""
+                _last_dot_place = position + 1
+                _last_slash_place = position + 1
+                continue
+            if symbol == ".":
+                _last_dot_place = position
+                continue
+            if symbol == "?":
+                _path_size = position + 1
+                break
+            _segment_name += symbol
+            if not ('0' <= symbol <= '9'):
+                _string_without_digits += symbol
+
+        # end of link
+        if prefix_size + _path_size == len(link):
+            segment_name.setdefault((_slash, _segment_name), 0)
+            segment_name[(_slash, _segment_name)] += 1
+            segment_substr_0_9.setdefault((_slash, _string_without_digits), 0)
+            segment_substr_0_9[(_slash, _string_without_digits)] += 1
+            if _string_without_digits == "":
+                segment_0_9.setdefault(_slash, 0)
+                segment_0_9[_slash] += 1
+            if _last_dot_place != _last_slash_place:
+                segment_ext.setdefault((_slash, _segment_name[_last_dot_place:(prefix_size + _path_size)]), 0)
+                segment_ext[(_slash, _segment_name[_last_dot_place:position])] += 1
+            segment_len.setdefault((_slash, position - _last_slash_place), 0)
+            segment_len[(_slash, position - _last_slash_place)] += 1
+
+        # query
+        _query_name = ""
+        _query_value = ""
+        _query_name_list = []
+        value_name_flag = True
+        for position, symbol in enumerate(link[prefix_size + _path_size:]):
+            if symbol == "&":
+                _query_name_list.append(_query_name)
+                param.setdefault((_query_name + "=" + _query_value), 0)
+                param[_query_name + "=" + _query_value] += 1
+                _query_name = ""
+                _query_value = ""
+                value_name_flag = True
+                continue
+            if symbol == "=":
+                value_name_flag = False
+                continue
+            if value_name_flag:
+                _query_name += symbol
+            else:
+                _query_value += symbol
+        _query_name_list.append(_query_name)
+        param.setdefault((_query_name + "=" + _query_value), 0)
+        param[_query_name + "=" + _query_value] += 1
+
+        param_name.setdefault(str(sorted(_query_name_list)), 0)
+        param_name[str(sorted(_query_name_list))] += 1
+        segments.setdefault(_slash + 1, 0)
+        my_f.write(link + " -\- " + str(_slash + 1) + "\t" + str(segments[_slash + 1]) + '\n')
+        segments[_slash + 1] += 1
+
+    def print_to_file():
+        threshold = N_link * ALPHA
+        # 1
+        for feature, number in segments.items():
+            if number >= threshold:
+                out.write("\nsegments:{}\t{}".format(feature, number))
+        # 2
+        for feature, number in param_name.items():
+            if number >= threshold:
+                out.write("\nparam_name:{}\t{}".format(feature, number))
+        # 3
+        for feature, number in param.items():
+            if number >= threshold:
+                out.write("\nparam:{}\t{}".format(feature, number))
+        # 4a
+        for feature, number in segment_name.items():
+            if number >= threshold:
+                out.write("\nsegment_name_{}:{}\t{}".format(feature[0], feature[1], number))
+        # 4b
+        for feature, number in segment_0_9.items():
+            if number >= threshold:
+                out.write("\nsegment_[0−9]_{}:1\t{}".format(feature, number))
+        # 4c
+        for feature, number in segment_substr_0_9.items():
+            if number >= threshold:
+                out.write("\nsegment_substr[0−9]_{}:1\t{}".format(feature, number))
+        # 4d
+        for feature, number in segment_ext.items():
+            if number >= threshold:
+                out.write("\nsegment_ext_{}:{}\t{}".format(feature[0], feature[1], number))
+        # 4f
+        for feature, number in segment_len.items():
+            if number >= threshold:
+                out.write("\nsegment_len_{}:{}\t{}".format(feature[0], feature[1], number))
+
+    q_link = open(INPUT_FILE_1, "r")
+    all_link = open(INPUT_FILE_2, "r")
+    out = open(OUTPUT_FILE, "w")
+
+    my_f = open("my.txt", "w")
+    N_link = 0
+    N_q_link = 0
+    for line in q_link:
+        get_link_features(line[:-1])
+        N_q_link += 1
+        # if N_link > MAX_LINK_NUMBER / 2:
+        #     break
+    for line in all_link:
+        get_link_features(line[:-1])
+        N_link += 1
+        if N_link > N_q_link:
+            break
+
+    N_link *= 2
+    print_to_file()
+
+    my_f.close()
+    q_link.close()
+    all_link.close()
+    out.close()
