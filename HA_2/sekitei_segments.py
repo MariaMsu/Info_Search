@@ -6,14 +6,14 @@ import numpy as np
 from urlparse import urlparse, parse_qs, unquote
 
 ALPHA = 0.1
-
+MEAN_SHIFT_PARAM = 0.003
 Cluster = None
 Vector_map = None
 Quota_list = None
 
 
 def link_to_vector(vector_map, link):
-    features_list = []
+    local_features = []
     parse_list = urlparse(link)
     path = parse_list.path
     if path[0] == "/":
@@ -23,54 +23,54 @@ def link_to_vector(vector_map, link):
     segment_names_list = path.split("/")
 
     segments_number = len(segment_names_list)
-    features_list.append("segments:{}".format(segments_number))
+    local_features.append("segments:{}".format(segments_number))
 
     query_dict = parse_qs(parse_list.query)
     # not empty
     if query_dict:
-        features_list.append("param_name:{}".format(str(query_dict.keys())))
+        local_features.append("param_name:{}".format(str(query_dict.keys())))
 
         for query in query_dict.items():
-            features_list.append("param:{}={}".format(query[0], query[1][0]))
+            local_features.append("param:{}={}".format(query[0], query[1][0]))
 
     contain_digit = False
     for iteration, segment in enumerate(segment_names_list):
         contain_digit = False
-        features_list.append("segment_name_{}:{}".format(iteration, segment))
-        features_list.append("segment_len_{}:{}".format(iteration, len(segment)))
+        local_features.append("segment_name_{}:{}".format(iteration, segment))
+        local_features.append("segment_len_{}:{}".format(iteration, len(segment)))
         if segment.find("%") >= 0:
             try:
                 segment = unquote(segment).decode("cp1251")
             except:
                 pass
         if segment.isdigit():
-            features_list.append("segment_[0-9]_{}:1".format(iteration))
+            local_features.append("segment_[0-9]_{}:1".format(iteration))
         elif len(re.findall(r'\d+', segment)) == 1:
-            features_list.append("segment_substr[0-9]_{}:1".format(iteration))
+            local_features.append("segment_substr[0-9]_{}:1".format(iteration))
             contain_digit = True
 
     last_segment_split = segment_names_list[-1].split(".")
     contain_ext = False
     if len(last_segment_split) > 1:
-        features_list.append("segment_ext_{}:{}".format(segments_number - 1, last_segment_split[-1].lower()))
+        local_features.append("segment_ext_{}:{}".format(segments_number - 1, last_segment_split[-1].lower()))
         contain_ext = True
 
     if contain_digit and contain_ext:
         # del segment_substr_0_9[segments_number - 1]
         # del segment_ext[(segments_number - 1, last_segment_split[-1].lower())]
-        features_list.append("segment_ext_substr_[0-9]_{}:{}"
-                             .format(segments_number - 1, last_segment_split[-1].lower()))
+        local_features.append("segment_ext_substr_[0-9]_{}:{}"
+                              .format(segments_number - 1, last_segment_split[-1].lower()))
 
-    features_list = sorted(features_list)
-    feature_len = len(features_list)
+    local_features = sorted(local_features)
+    feature_len = len(local_features)
     index = 0
     vector = np.zeros(len(vector_map))
     for iteration, feature in enumerate(sorted(vector_map)):
-        while features_list[index] < feature:
+        while local_features[index] < feature:
             index += 1
-            if index>=feature_len:
-                break
-        if features_list[index] == feature:
+            if index >= feature_len - 1:
+                return vector
+        if local_features[index] == feature:
             vector[iteration] = 1
             continue
     return vector
@@ -210,9 +210,8 @@ def define_segments(QLINK_URLS, UNKNOWN_URLS, QUOTA):
 
     global Cluster
     global Quota_list
-    Cluster = MeanShift(bandwidth=2.5).fit(major_matrix)
-    Quota_list = np.ones(np.amax(Cluster.labels_)+1)
-    print Cluster.labels_
+    Cluster = MeanShift(bandwidth=MEAN_SHIFT_PARAM).fit(major_matrix)
+    Quota_list = np.ones(np.amax(Cluster.labels_) + 1)
     for q_cluster in Cluster.labels_[:q_link_number]:
         Quota_list[q_cluster] += 1
     Quota_list *= QUOTA / np.sum(Quota_list)
