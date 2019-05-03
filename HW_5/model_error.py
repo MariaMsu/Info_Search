@@ -1,6 +1,8 @@
 import numpy as np
 import json
 
+EMPTY_LEX = "~"
+
 
 class ErrorModel:
     def __init__(self):
@@ -37,8 +39,8 @@ class ErrorModel:
         for i in range(1, m + 1):
             previous_row, current_row = current_row, [i] + [0] * n
             for j in range(1, n + 1):
-                add, delete, change = (previous_row[j] + 1) / self._get_statistics("~", b[i - 1]), \
-                                      (current_row[j - 1] + 1) / self._get_statistics(a[j - 1], "~"), \
+                add, delete, change = (previous_row[j] + 1) / self._get_statistics(EMPTY_LEX, b[i - 1]), \
+                                      (current_row[j - 1] + 1) / self._get_statistics(a[j - 1], EMPTY_LEX), \
                                       (previous_row[j - 1] + int(a[j - 1] != b[i - 1])) / self._get_statistics(a[j - 1],
                                                                                                                b[i - 1])
                 current_row[j] = min(add, delete, change)
@@ -78,13 +80,13 @@ class ErrorModel:
             elif action == 1:  # add
                 if position[2] != possible_actions[action.item()]:
                     position[2] -= 1
-                    self._add_statistics("~", b[y - 1])
+                    self._add_statistics(EMPTY_LEX, b[y - 1])
                     # print("~ -> " + b[y - 1])
                 position[1] -= 1
             else:  # delete
                 if position[2] != possible_actions[action.item()]:
                     position[2] -= 1
-                    self._add_statistics(a[x - 1], "~")
+                    self._add_statistics(a[x - 1], EMPTY_LEX)
                     # print(a[x - 1] + " -> ~")
                 position[0] -= 1
 

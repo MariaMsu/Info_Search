@@ -1,4 +1,24 @@
 import json
+import re
+
+
+# def split(string):
+#     word_list =  re.split("[ !@#№$%^&*()_\-+=[\]{}|;:\"'/?<>,\\\«»0123456789]", string)  # add "\"?
+#     return [i for i in word_list if i]  # remove empty
+
+
+def split(string):
+    word_list = []
+    word = str()
+    for char in string:
+        if ("A" < char < "Z") or ("a" < char < "z") or ("А" < char < "Я") or ("а" < char < "я"):
+            word += char
+        elif word:
+            word_list += [word]
+            word = str()
+    if word:
+        word_list += [word]
+    return word_list
 
 
 class LanguageModel:
@@ -7,6 +27,8 @@ class LanguageModel:
         self._statistics_size = 0
 
     def fit(self, word_list):
+        if not word_list:
+            return
         for item in word_list:
             self._add_statistics(item)
 
@@ -34,12 +56,18 @@ class LanguageModel:
         return 0.5 / self._statistics_size  # newer sow this case
 
 
-# represent word as bigrams
+# represent word as bigrams..танцы
 def bi_word(string):
     if not string:
-        return ["^", "_"]
-    word_list = ["^"] + string.split(" ") + ["_"]
+        return []
+    word_list = ["^"] + split(string) + ["_"]
     new_list = []
     for i in range(len(word_list) - 1):
-        new_list += [(word_list[i], word_list[i + 1])]
+        new_list += [str(word_list[i] + word_list[i + 1])]
     return new_list
+
+
+if __name__ == "__main__":
+    s = split("1370vfvf..lkjhgf")
+    for i in s:
+        print(i)
