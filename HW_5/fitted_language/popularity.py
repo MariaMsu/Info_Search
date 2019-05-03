@@ -39,6 +39,6 @@ if __name__ == "__main__":
     import pprint
 
     pprint.pprint(pop.dictionary)
-    f = open("t.txt", "w")
+    f = open("t1.txt", "w")
     pprint.pprint(pop.dictionary, f)
     f.close()

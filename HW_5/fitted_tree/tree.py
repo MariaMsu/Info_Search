@@ -13,3 +13,13 @@ def generate_tree_json():
 
 if __name__ == "__main__":
     generate_tree_json()
+
+    tree = BORtree()
+    tree.load_json("tree.json")
+
+    import pprint
+
+    pprint.pprint(tree.tree)
+    f = open("t1.txt", "w")
+    pprint.pprint(tree.tree, f)
+    f.close()

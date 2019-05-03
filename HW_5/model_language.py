@@ -1,20 +1,22 @@
 import json
 import re
 
-
 # def split(string):
 #     word_list =  re.split("[ !@#№$%^&*()_\-+=[\]{}|;:\"'/?<>,\\\«»0123456789]", string)  # add "\"?
 #     return [i for i in word_list if i]  # remove empty
+
+MAX_WORD_LEN = 15
 
 
 def split(string):
     word_list = []
     word = str()
     for char in string:
-        if ("A" < char < "Z") or ("a" < char < "z") or ("А" < char < "Я") or ("а" < char < "я"):
+        if ("A" <= char <= "Z") or ("a" <= char <= "z") or ("А" <= char <= "Я") or ("а" <= char <= "я"):
             word += char
         elif word:
-            word_list += [word]
+            if len(word) < MAX_WORD_LEN:
+                word_list += [word]
             word = str()
     if word:
         word_list += [word]
@@ -56,7 +58,7 @@ class LanguageModel:
         return 0.5 / self._statistics_size  # newer sow this case
 
 
-# represent word as bigrams..танцы
+# represent word as bigrams
 def bi_word(string):
     if not string:
         return []
@@ -68,6 +70,6 @@ def bi_word(string):
 
 
 if __name__ == "__main__":
-    s = split("1370vfvf..lkjhgf")
+    s = split("купить фисташки мачо опт украина")
     for i in s:
         print(i)
