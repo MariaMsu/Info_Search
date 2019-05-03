@@ -34,11 +34,11 @@ if __name__ == "__main__":
     # класс, занющий статитстику
 
     pop = LanguageModel()
-    pop.load_json("statistics_1gram.json")
+    pop.load_json("statistics_2gram.json")
 
     import pprint
 
     pprint.pprint(pop.dictionary)
-    f = open("t1.txt", "w")
+    f = open("t.txt", "w")
     pprint.pprint(pop.dictionary, f)
     f.close()
