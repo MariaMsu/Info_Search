@@ -1,4 +1,5 @@
-# меняем раскладку, если надо. для этогго анализируем биграммы
+# меняем раскладку, если надо. для этого анализируем биграммы
+# биграммы получены в language_selector
 
 english = {"th", "he", "an", "nd", "in", "er", "ha", "re", "of", "or", "hi", "at", "ou", "en", "to", "al", "is", "ll",
            "on", "it", "es", "se", "nt", "ed", "ve", "ar", "sh", "ng", "ea", "ho", "st", "me", "be", "le", "as", "fo",
@@ -29,7 +30,7 @@ def switch_layout(string):
     eng = new_str.translate(ru_to_en)
     rus_confidence = len(_get_3gram(rus) & russian)
     eng_confidence = len(_get_3gram(eng) & english)
-    print(str(rus_confidence) + " " + str(eng_confidence))
+    # print(str(rus_confidence) + " " + str(eng_confidence))
     return rus if rus_confidence >= eng_confidence else eng
 
 
@@ -40,4 +41,5 @@ def _get_3gram(string):
     return new_set
 
 
-print(switch_layout("fyyfcbvbyjdbx"))
+if __name__ == "__main__":
+    print(switch_layout("fyyfcbvbyjdbx"))

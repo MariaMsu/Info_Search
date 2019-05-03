@@ -1,10 +1,20 @@
 import numpy as np
+import json
 
 
-class ErrorStatistics:
+class ErrorModel:
     def __init__(self):
         self.statistics = dict()  # {"origin" : {"fix" : number}}
         self._statistics_size = 0
+
+    def load_json(self, json_path):
+        (stat, size) = json.loads(open(json_path, "r").read())
+        self.statistics, self._statistics_size = stat, size
+
+    def store_json(self, json_path):
+        file = open(json_path, "w")
+        file.write(json.dumps((self.statistics, self._statistics_size)))
+        file.close()
 
     def ne_fit(self, a, b):
         levenshtein_matrix = self._get_levenshtein_matrix(a, b)
@@ -112,13 +122,14 @@ def make_bigram(string):
     return new_string
 
 
-error = ErrorStatistics()
-error.ne_fit("p", "k")
-error.ne_fit("p", "s")
-error.prichesat_statistiku()
-print(error.statistics)
-print(error.get_weighted_distance("po", "k"))
-# a1 = ["^a", "ab", "b_"]
-# b1 = ["^a", "a_"]
-# print(levenshtein_distance(make_bigram(a1), make_bigram(b1)))  # a to b
-# print(levenshtein_distance(b1, a1))  # b to a
+if __name__ == "__main__":
+    error = ErrorModel()
+    error.ne_fit("p", "k")
+    error.ne_fit("p", "s")
+    error.prichesat_statistiku()
+    print(error.statistics)
+    print(error.get_weighted_distance("po", "k"))
+    # a1 = ["^a", "ab", "b_"]
+    # b1 = ["^a", "a_"]
+    # print(levenshtein_distance(make_bigram(a1), make_bigram(b1)))  # a to b
+    # print(levenshtein_distance(b1, a1))  # b to a
