@@ -8,15 +8,15 @@ class ErrorModel:
         self._statistics_size = 0
 
     def load_json(self, json_path):
-        (stat, size) = json.loads(open(json_path, "r").read())
-        self.statistics, self._statistics_size = stat, size
+        (size, stat) = json.loads(open(json_path, "r").read())
+        self._statistics_size, self.statistics = size, stat
 
     def store_json(self, json_path):
         file = open(json_path, "w")
-        file.write(json.dumps((self.statistics, self._statistics_size)))
+        file.write(json.dumps((self._statistics_size, self.statistics)))
         file.close()
 
-    def ne_fit(self, a, b):
+    def fit(self, a, b):
         levenshtein_matrix = self._get_levenshtein_matrix(a, b)
         self._fill_statistics(a, b, levenshtein_matrix)
 
@@ -112,7 +112,7 @@ class ErrorModel:
 
 
 # represent word as bigrams
-def make_bigram(string):
+def bi_symbols(string):
     if not string:
         return ["^_"]
     new_string = ["^" + string[0]]
@@ -124,8 +124,8 @@ def make_bigram(string):
 
 if __name__ == "__main__":
     error = ErrorModel()
-    error.ne_fit("p", "k")
-    error.ne_fit("p", "s")
+    error.fit("p", "k")
+    error.fit("p", "s")
     error.prichesat_statistiku()
     print(error.statistics)
     print(error.get_weighted_distance("po", "k"))

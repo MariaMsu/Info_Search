@@ -2,19 +2,19 @@ import sys
 import json
 
 from change_layout import switch_layout
-from model_error import ErrorModel, make_bigram
+from model_error import ErrorModel, bi_symbols
 
 LOOP = 10
 ALPHA = 0.5
 bigram_distance = ErrorModel()
-bigram_distance.load_json("bigram_levehshtein/statistics.json")
+bigram_distance.load_json("fitted_levehshtein/statistics_2gram.json")
 
 
 def fix_score(_orig, _fix):
     global bigram_distance
 
     def P_orig_fix():
-        lev = bigram_distance.get_weighted_distance(make_bigram(_orig), make_bigram(_fix))
+        lev = bigram_distance.get_weighted_distance(bi_symbols(_orig), bi_symbols(_fix))
         return ALPHA ** (-lev)
 
     def P_orig():
@@ -46,7 +46,7 @@ def fix_score(_orig, _fix):
 
 a = "мама"
 b = "кама"
-print(bigram_distance.get_weighted_distance(make_bigram(a), make_bigram(b)))
+print(bigram_distance.get_weighted_distance(bi_symbols(a), bi_symbols(b)))
 a = "кропотов"
 b = "пидор"
-print(bigram_distance.get_weighted_distance(make_bigram(a), make_bigram(b)))
+print(bigram_distance.get_weighted_distance(bi_symbols(a), bi_symbols(b)))
