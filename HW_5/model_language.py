@@ -56,6 +56,7 @@ class LanguageModel:
             else:
                 self.dictionary.pop(key)
 
+    # return (кол-во вхождений / размер статистики)
     def get_popularity(self, item):
         if item in self.dictionary:
             return self.dictionary[item]

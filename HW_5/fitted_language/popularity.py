@@ -1,7 +1,7 @@
 from model_language import LanguageModel, bi_word, split
 
 INPUT_FILE = "../queries_all.txt"
-INPUT_FILE = "queries_all.txt"
+# INPUT_FILE = "queries_all.txt"
 # INPUT_FILE = "text.txt"
 
 ungram_len = 0
@@ -50,18 +50,18 @@ def info():
 
 
 if __name__ == "__main__":
-    generate_1gram_json()
-    # generate_2gram_json()
+    # generate_1gram_json("statistics_1gram.json"))
+    generate_2gram_json("statistics_2gram.json")
 
     # класс, занющий статитстику
 
     pop = LanguageModel()
-    pop.load_json("statistics_2gram.json")
+    pop.load_json("statistics_1gram.json")
 
     import pprint
 
     pprint.pprint(pop.dictionary)
-    f = open("t.txt", "w")
+    f = open("t1.txt", "w")
     pprint.pprint(pop.dictionary, f)
     f.close()
 

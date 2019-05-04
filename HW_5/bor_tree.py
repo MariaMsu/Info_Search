@@ -4,9 +4,8 @@ import json
 from model_language import LanguageModel
 
 END_OF_WORD = "\n"
-MAX_ERROR = 6
-ALPHA = -0.5
-# ADD_LEX = "йцукенгшщзхъфывапролджэячсмитьбюё"
+MAX_ERROR = 6  # adjust this parameter
+ALPHA = 100000  # adjust this parameter
 PREFIX_PATH = ""
 
 
@@ -58,9 +57,11 @@ class BORtree:
         self.error_threshold = len(string) * MAX_ERROR
         self._get_best_word(string)
         for key in self.best_matches:
-            print("way \"{}\" - {} : {}".format(key, (BORtree.frequency.get_popularity(key) ** ALPHA),
-                                                BORtree.bigram_distance.get_weighted_distance(string, key)))
-            self.best_matches[key] = (BORtree.frequency.get_popularity(key) ** ALPHA) / \
+            print("way: \"{}\" - frequency: {}*ALPHA : distance: {}".
+                  format(key, (BORtree.frequency.get_popularity(key)),
+                         BORtree.bigram_distance.get_weighted_distance(string, key)))
+
+            self.best_matches[key] = (BORtree.frequency.get_popularity(key) * ALPHA) / \
                                      max(1, BORtree.bigram_distance.get_weighted_distance(string, key))
         return sorted(self.best_matches.items(), key=lambda kv: kv[1], reverse=True)
 
@@ -135,7 +136,7 @@ if __name__ == "__main__":
     # for num, i in enumerate(t.tree):
     #     print("{} : {}".format(num, i))
 
-    for i in t.find_best("окошки"):
+    for i in t.find_best("трон"):
         print(i)
 
     # f = open("t1.txt", "w")

@@ -121,14 +121,14 @@ class ErrorModel:
                 if position[2] != possible_actions[action.item()]:
                     position[2] -= 1
                     self._add_statistics(EMPTY_LEX, b[y - 1])
-                    #       self._add_statistics(a[x - 1][1] + EMPTY_LEX, b[y - 1]) for bigram
+                    #           self._add_statistics(a[x - 1][1] + EMPTY_LEX, b[y - 1]) #  only for bigram
                     # print("~ -> " + b[y - 1])
                 position[1] -= 1
             else:  # delete
                 if position[2] != possible_actions[action.item()]:
                     position[2] -= 1
                     self._add_statistics(a[x - 1], EMPTY_LEX)
-                    #       self._add_statistics(a[x - 1], EMPTY_LEX + b[y - 1][1]) for bigram
+                    #           self._add_statistics(a[x - 1], EMPTY_LEX + b[y - 1][1]) #  only for bigram
                     # print(a[x - 1] + " -> ~")
                 position[0] -= 1
 

@@ -2,8 +2,6 @@
   <dictionary name="maria">
     <words>
       <w>bigram</w>
-      <w>levehshtein</w>
-      <w>ungram</w>
     </words>
   </dictionary>
 </component>

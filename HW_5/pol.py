@@ -13,8 +13,7 @@ def check():
 
 # check()
 
-a = np.array([10, 20, 30])
-b = np.array([[1, 2, 3]])
-print(a / b)
+a = [1, 2, 3, 4]
+print(a[1:-1])
 
 # todo get_gram_statistics make return 0, not 1
