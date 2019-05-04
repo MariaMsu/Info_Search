@@ -45,8 +45,11 @@ class ErrorModel:
 
     def prichesat_statistiku(self):
         for orig in self.statistics.keys():
+            example_count = 0
             for fix in self.statistics[orig].keys():
-                self.statistics[orig][fix] /= len(self.statistics[orig])
+                example_count += self.statistics[orig][fix]
+            for fix in self.statistics[orig].keys():
+                self.statistics[orig][fix] /= example_count
 
     def get_weighted_distance(self, a, b):
         n, m = len(a), len(b)
@@ -60,17 +63,31 @@ class ErrorModel:
         for i in range(1, m + 1):
             previous_row, current_row = current_row, [i] + [0] * n
             for j in range(1, n + 1):
-                add, delete, change = (previous_row[j] + 1) / self._get_statistics(EMPTY_LEX, b[i - 1]), \
-                                      (current_row[j - 1] + 1) / self._get_statistics(a[j - 1], EMPTY_LEX), \
-                                      (previous_row[j - 1] + int(a[j - 1] != b[i - 1])) / self._get_statistics(a[j - 1],
-                                                                                                               b[i - 1])
-                current_row[j] = min(add, delete, change)
+                possible_actions = np.array([(previous_row[j - 1] + int(a[j - 1] != b[i - 1])),  # change
+                                             (previous_row[j] + 1),  # add
+                                             (current_row[j - 1] + 1)])  # delete
+                weight_mask = np.array([self.get_gram_statistics(a[j - 1], b[i - 1]),  # change
+                                        self.get_gram_statistics(EMPTY_LEX, b[i - 1]),  # add
+                                        self.get_gram_statistics(a[j - 1], EMPTY_LEX)])  # delete
+                weighted_action = possible_actions + (1 / weight_mask)
+                action = np.argmin(weighted_action)
+                current_row[j] = weighted_action[action.item()]
             # matrix = np.vstack((matrix, [current_row]))
+            # print(a + " -- " + b)
+            # print(matrix)
         return current_row[n]
 
-    def _get_statistics(self, orig, fit):
-        if orig in self.statistics and fit in self.statistics[orig]:
-            return self.statistics[orig][fit]
+    # return (кол-во вхождений этого элемента / кол-во всех элементов)
+    # чем больше, тем меньше вес ошибки
+    # weight = 1 / statistics
+    def get_gram_statistics(self, orig, fix):
+        if orig == fix:  # warning! di not call in this case
+            # print("error {}".format(0))
+            return 1
+        if orig in self.statistics and fix in self.statistics[orig]:
+            # print("error {}".format(self.statistics[orig][fix]))
+            return self.statistics[orig][fix]
+        # print("error {}".format(1 / 1000))
         return 1 / 1000  # TODO flexible (newer sow this case)
 
     def _add_statistics(self, orig, fix):
@@ -104,12 +121,14 @@ class ErrorModel:
                 if position[2] != possible_actions[action.item()]:
                     position[2] -= 1
                     self._add_statistics(EMPTY_LEX, b[y - 1])
+                    #       self._add_statistics(a[x - 1][1] + EMPTY_LEX, b[y - 1]) for bigram
                     # print("~ -> " + b[y - 1])
                 position[1] -= 1
             else:  # delete
                 if position[2] != possible_actions[action.item()]:
                     position[2] -= 1
                     self._add_statistics(a[x - 1], EMPTY_LEX)
+                    #       self._add_statistics(a[x - 1], EMPTY_LEX + b[y - 1][1]) for bigram
                     # print(a[x - 1] + " -> ~")
                 position[0] -= 1
 
@@ -149,10 +168,10 @@ def bi_symbols(string):
 
 if __name__ == "__main__":
     error = ErrorModel()
-    a = "p234"
-    b = "k"
-    error.fit(a, b)
-    error.fit(b, a)
-    error.prichesat_statistiku()
+    # error.load_json("fitted_levehshtein/statistics_2gram.json")
+    a = "кшка"
+    b = "кошка"
+
+    error.fit(bi_symbols(a), bi_symbols(b))
     print(error.statistics)
-    print(error.get_weighted_distance("po", "k"))
+    print(error.get_weighted_distance(bi_symbols("сан"), bi_symbols("сон")))

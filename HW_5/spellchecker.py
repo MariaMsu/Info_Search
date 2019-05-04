@@ -1,6 +1,6 @@
-import sys
 import json
 
+from bor_tree import BORtree
 from change_layout import switch_layout
 from model_error import ErrorModel, bi_symbols
 
@@ -25,6 +25,26 @@ def fix_score(_orig, _fix):
 
     return P_orig_fix() * P_fix() / P_orig()
 
+def generate_fix_query(string_matrix):
+    query_list = []
+
+
+print("enter:\n")
+bor = BORtree()
+bor.load_json("fitted_tree/tree.json")
+DEFAULT_SCORE = 100
+while True:
+    query = input()
+    query = switch_layout(query)
+
+    words_list = query.split(" ")
+    variants = []
+    for word in words_list:
+        var_list = [(word, DEFAULT_SCORE)] + bor.best_matches(word)
+        variants += [var_list]
+
+
+    print(query)
 
 # orig_query = sys.argv[1]
 # query = switch_layout(orig_query).lower()  # смена раскладки
@@ -43,10 +63,3 @@ def fix_score(_orig, _fix):
 #         best = (variant, score)
 #
 # print(best[0])
-
-a = "мама"
-b = "кама"
-print(bigram_distance.get_weighted_distance(bi_symbols(a), bi_symbols(b)))
-a = "кропотов"
-b = "пидор"
-print(bigram_distance.get_weighted_distance(bi_symbols(a), bi_symbols(b)))

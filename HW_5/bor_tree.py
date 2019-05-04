@@ -4,9 +4,9 @@ import json
 from model_language import LanguageModel
 
 END_OF_WORD = "\n"
-MAX_ERROR = 100
-ALPHA = -1
-ADD_LEX = "йцукенгшщзхъфывапролджэячсмитьбюё"
+MAX_ERROR = 6
+ALPHA = -0.5
+# ADD_LEX = "йцукенгшщзхъфывапролджэячсмитьбюё"
 PREFIX_PATH = ""
 
 
@@ -27,7 +27,7 @@ class BORtree:
         self._tree_size = 0
 
     def fit(self, word):
-        word += END_OF_WORD
+        word += END_OF_WORD  # в дереве будет узел \n
         i, node = self._find_node(word)
 
         self._add_node(node, word[i])
@@ -54,14 +54,14 @@ class BORtree:
         self.tree.append([char, dict()])
 
     def find_best(self, string):
-        self.best_matches = {}
+        self.best_matches = {string: 0}
         self.error_threshold = len(string) * MAX_ERROR
-        self._get_best_word(string + END_OF_WORD)
+        self._get_best_word(string)
         for key in self.best_matches:
-            # print("{} : {}".format((frequency.get_popularity(key) ** ALPHA),
-            #                        bigram_distance.get_weighted_distance(string, key)))
+            print("way \"{}\" - {} : {}".format(key, (BORtree.frequency.get_popularity(key) ** ALPHA),
+                                                BORtree.bigram_distance.get_weighted_distance(string, key)))
             self.best_matches[key] = (BORtree.frequency.get_popularity(key) ** ALPHA) / \
-                                     BORtree.bigram_distance.get_weighted_distance(string, key)
+                                     max(1, BORtree.bigram_distance.get_weighted_distance(string, key))
         return sorted(self.best_matches.items(), key=lambda kv: kv[1], reverse=True)
 
     # вставляем в словарь самых похожих слов
@@ -72,26 +72,31 @@ class BORtree:
             self.best_matches[way] = score
 
     def _get_best_word(self, string, way="", error=0, iteration=-1, node=0, big_err=False):
+
         def next_iteration(new_str, add_er=0):
             for char in self.tree[node][1]:
+                if char == END_OF_WORD:
+                    continue
                 self._get_best_word(new_str,
                                     way + current_char,
                                     error + add_er + self._get_error(new_str[iteration], char),
-                                    iteration + 1,
+                                    iteration,
                                     self.tree[node][1][char],
                                     big_err)
-
-        if error > self.error_threshold:
-            return
-        if len(string) <= iteration:
-            return
-        if self.tree[node][0] == string[iteration] == END_OF_WORD:
-            self._add_match(way, error)
-            print(way + " - : - " + str(error))
             return
 
         current_char = self.tree[node][0]
 
+        if error > self.error_threshold:
+            return
+        if (END_OF_WORD in self.tree[node][1]) and (len(string) - 1 == iteration):
+            self._add_match(way + current_char, error)
+            # print("\"" + way + "\"" + " --:-- error: " + str(error))
+            return
+        if len(string) - 1 == iteration:
+            return
+
+        iteration += 1
         next_iteration(string)  # next letter
 
         if not big_err:  # пусть добавление или удаление буквы может быть только 1 раз
@@ -100,26 +105,46 @@ class BORtree:
                 add_error = self._get_error(string[iteration], EMPTY_LEX)
                 next_iteration(string[:iteration] + string[iteration + 1:], add_error)
 
-            for symbol in ADD_LEX:  # add letter
+            for symbol in self.tree[node][1]:  # add letter
                 add_error = self._get_error(EMPTY_LEX, symbol)
                 next_iteration(string[:iteration] + symbol + string[iteration:], add_error)
 
     @staticmethod
     def _get_error(orig, fix):
-        return BORtree.ungram_distance.get_weighted_distance(orig, fix)
+        if orig == fix:
+            # print("ERROR {}, orig \"{}\", fix \"{}\"".format(0, orig, fix))
+            return 0
+
+        # print("ERROR {}, orig \"{}\", fix \"{}\"".format(1 / BORtree.ungram_distance.get_gram_statistics(orig, fix),
+        #                                                  orig, fix))
+        # if (orig == "~") or (fix == "~"):
+        #     return 50
+        return 1 / BORtree.ungram_distance.get_gram_statistics(orig, fix)
 
 
 if __name__ == "__main__":
     t = BORtree()
 
-    t.fit("кот")
-    t.fit("крот")
-    t.fit("ком")
-    t.fit("кошка")
-    t.fit("кп")
+    t.load_json("fitted_tree/tree.json")
+    # t.fit("кот")
+    # t.fit("крот")
+    # t.fit("коп")
+    # t.fit("кошка")
+    # t.fit("окошко")
 
     # for num, i in enumerate(t.tree):
     #     print("{} : {}".format(num, i))
 
-    for i in t.find_best("коп").items():
+    for i in t.find_best("окошки"):
         print(i)
+
+    # f = open("t1.txt", "w")
+    # def print_words(_tree, node=0, word=""):
+    #     word += _tree[node][0]
+    #     if _tree[node][0] == '\n':
+    #         f.write(word)
+    #         return
+    #     for key, value in _tree[node][1].items():
+    #         print_words(_tree, value, word)
+    # print_words(t.tree)
+    # f.close()

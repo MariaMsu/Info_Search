@@ -1,4 +1,5 @@
 from bor_tree import BORtree
+import numpy as np
 
 
 def check():
@@ -10,4 +11,10 @@ def check():
         print(i)
 
 
-check()
+# check()
+
+a = np.array([10, 20, 30])
+b = np.array([[1, 2, 3]])
+print(a / b)
+
+# todo get_gram_statistics make return 0, not 1

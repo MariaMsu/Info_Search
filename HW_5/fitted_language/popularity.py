@@ -1,7 +1,8 @@
 from model_language import LanguageModel, bi_word, split
 
-# INPUT_FILE = "../queries_all.txt"
+INPUT_FILE = "../queries_all.txt"
 INPUT_FILE = "queries_all.txt"
+# INPUT_FILE = "text.txt"
 
 ungram_len = 0
 bigram_len = 0
@@ -12,6 +13,8 @@ def generate_1gram_json(json_path):
     query_file = open(INPUT_FILE, "r")
     _ungram_pop = LanguageModel()
     for line in query_file:
+        if not line:
+            continue
         delimiter = line.find("\t")
         _ungram_pop.fit(split(line[delimiter + 1:-1].lower()))
 
@@ -28,6 +31,8 @@ def generate_2gram_json(json_path):
     query_file = open(INPUT_FILE, "r")
     _bigram_pop = LanguageModel()
     for line in query_file:
+        if not line:
+            continue
         delimiter = line.find("\t")
         _bigram_pop.fit(bi_word(line[delimiter + 1:-1].lower()))
 
