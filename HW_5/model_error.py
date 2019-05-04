@@ -2,6 +2,27 @@ import numpy as np
 import json
 
 EMPTY_LEX = "~"
+MAX_WORD_LEN = 15
+SPECIAL_LEX = {"_", "-", "—", "'"}
+
+
+def split(string):
+    word_list = []
+    word = str()
+    for char in string:
+        if ("A" <= char <= "Z") or \
+                ("a" <= char <= "z") or \
+                ("А" <= char <= "Я") or \
+                ("а" <= char <= "я") or \
+                (char in SPECIAL_LEX):
+            word += char
+        elif word:
+            if len(word) < MAX_WORD_LEN:
+                word_list += [word]
+            word = str()
+    if word:
+        word_list += [word]
+    return word_list
 
 
 class ErrorModel:
@@ -25,7 +46,7 @@ class ErrorModel:
     def prichesat_statistiku(self):
         for orig in self.statistics.keys():
             for fix in self.statistics[orig].keys():
-                self.statistics[orig][fix] /= self._statistics_size
+                self.statistics[orig][fix] /= len(self.statistics[orig])
 
     def get_weighted_distance(self, a, b):
         n, m = len(a), len(b)
@@ -50,7 +71,7 @@ class ErrorModel:
     def _get_statistics(self, orig, fit):
         if orig in self.statistics and fit in self.statistics[orig]:
             return self.statistics[orig][fit]
-        return 0.5 / self._statistics_size  # newer sow this case
+        return 1 / 1000  # TODO flexible (newer sow this case)
 
     def _add_statistics(self, orig, fix):
         self.statistics.setdefault(orig, dict())
@@ -60,14 +81,16 @@ class ErrorModel:
 
     def _fill_statistics(self, a, b, matrix):
         n, m = len(a), len(b)
+        MAX_DISTANCE = (n + 1) * (m + 1)
 
         position = [n, m, matrix[m, n]]  # [x, y, distance]
-        while position[2] != 0:  # пока position не придет в правый нижний угол
+        while position[2] != 0:  # пока distance не станет 0
             x, y = position[0], position[1]
 
-            possible_actions = [matrix[y - 1][x - 1],  # change
-                                matrix[y - 1][x],  # add
-                                matrix[y][x - 1]]  # delete
+            # только один из возможных путей изменения. можно сделать лучше
+            possible_actions = [matrix[y - 1][x - 1] if (x > 0) and (y > 0) else MAX_DISTANCE,  # change
+                                matrix[y - 1][x] if y > 0 else MAX_DISTANCE,  # add
+                                matrix[y][x - 1] if x > 0 else MAX_DISTANCE]  # delete
             action = np.argmin(possible_actions)
 
             if action == 0:  # change
@@ -126,12 +149,10 @@ def bi_symbols(string):
 
 if __name__ == "__main__":
     error = ErrorModel()
-    error.fit("p", "k")
-    error.fit("p", "s")
+    a = "p234"
+    b = "k"
+    error.fit(a, b)
+    error.fit(b, a)
     error.prichesat_statistiku()
     print(error.statistics)
     print(error.get_weighted_distance("po", "k"))
-    # a1 = ["^a", "ab", "b_"]
-    # b1 = ["^a", "a_"]
-    # print(levenshtein_distance(make_bigram(a1), make_bigram(b1)))  # a to b
-    # print(levenshtein_distance(b1, a1))  # b to a

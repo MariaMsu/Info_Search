@@ -1,5 +1,3 @@
-import math
-
 from model_error import ErrorModel, EMPTY_LEX
 import json
 
@@ -9,15 +7,21 @@ END_OF_WORD = "\n"
 MAX_ERROR = 100
 ALPHA = -1
 ADD_LEX = "йцукенгшщзхъфывапролджэячсмитьбюё"
+PREFIX_PATH = ""
 
-ungram_distance = ErrorModel()
-ungram_distance.load_json("../fitted_levehshtein/statistics_1gram.json")
 
-frequency = LanguageModel()
-frequency.load_json("../fitted_language/statistics_1gram.json")
+# PREFIX_PATH = "../"
 
 
 class BORtree:
+    # print("prefix: " + PREFIX_PATH + "<-")
+    ungram_distance = ErrorModel()
+    ungram_distance.load_json(PREFIX_PATH + "fitted_levehshtein/statistics_1gram.json")
+    bigram_distance = ErrorModel()
+    bigram_distance.load_json(PREFIX_PATH + "fitted_levehshtein/statistics_2gram.json")
+    frequency = LanguageModel()
+    frequency.load_json(PREFIX_PATH + "fitted_language/statistics_1gram.json")
+
     def __init__(self):
         self.tree = [["", dict()]]
         self._tree_size = 0
@@ -54,8 +58,10 @@ class BORtree:
         self.error_threshold = len(string) * MAX_ERROR
         self._get_best_word(string + END_OF_WORD)
         for key in self.best_matches:
-            print("{} : {}".format((frequency.get_popularity(key)**ALPHA), self.best_matches[key]))
-            self.best_matches[key] = (frequency.get_popularity(key)**ALPHA) / self.best_matches[key]
+            # print("{} : {}".format((frequency.get_popularity(key) ** ALPHA),
+            #                        bigram_distance.get_weighted_distance(string, key)))
+            self.best_matches[key] = (BORtree.frequency.get_popularity(key) ** ALPHA) / \
+                                     BORtree.bigram_distance.get_weighted_distance(string, key)
         return sorted(self.best_matches.items(), key=lambda kv: kv[1], reverse=True)
 
     # вставляем в словарь самых похожих слов
@@ -88,19 +94,19 @@ class BORtree:
 
         next_iteration(string)  # next letter
 
-        if not big_err:  # добавление или удаление буквы может быть только 1 раз
+        if not big_err:  # пусть добавление или удаление буквы может быть только 1 раз
             big_err = True
-            if len(string) - iteration > 1:
+            if len(string) - iteration > 1:  # dell letter
                 add_error = self._get_error(string[iteration], EMPTY_LEX)
-                next_iteration(string[:iteration] + string[iteration + 1:], add_error)  # dell letter
+                next_iteration(string[:iteration] + string[iteration + 1:], add_error)
 
-            for symbol in ADD_LEX:
+            for symbol in ADD_LEX:  # add letter
                 add_error = self._get_error(EMPTY_LEX, symbol)
-                next_iteration(string[:iteration] + symbol + string[iteration:], add_error)  # add letter
+                next_iteration(string[:iteration] + symbol + string[iteration:], add_error)
 
     @staticmethod
     def _get_error(orig, fix):
-        return ungram_distance.get_weighted_distance(orig, fix)
+        return BORtree.ungram_distance.get_weighted_distance(orig, fix)
 
 
 if __name__ == "__main__":

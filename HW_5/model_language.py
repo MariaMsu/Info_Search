@@ -48,9 +48,13 @@ class LanguageModel:
         self.dictionary[item] += 1
         self._statistics_size += 1
 
-    def prichesat_statistiku(self):
-        for item in self.dictionary.keys():
-            self.dictionary[item] /= self._statistics_size
+    def prichesat_statistiku(self, cut_off=0):
+        for key in list(self.dictionary.keys()):  # to avoid "RuntimeError: dictionary changed size during iteration
+            frequency = self.dictionary[key] / self._statistics_size
+            if frequency > cut_off:
+                self.dictionary[key] = frequency
+            else:
+                self.dictionary.pop(key)
 
     def get_popularity(self, item):
         if item in self.dictionary:

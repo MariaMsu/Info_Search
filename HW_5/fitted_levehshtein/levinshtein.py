@@ -1,47 +1,59 @@
 from change_layout import switch_layout
-from model_error import ErrorModel, bi_symbols
+from model_error import ErrorModel, bi_symbols, split
 
+INPUT_FILE = "../queries_all.txt"
 
-def generate_2gram_json():
-    query_file = open("../queries_all.txt", "r")
+# INPUT_FILE = "queries_all.txt"
+
+def generate_2gram_json(json_path):
+    print('\033[93m' + "levenshtein generate_2gram_json()" + '\033[0m')
+    query_file = open(INPUT_FILE, "r")
     _bigram_distance = ErrorModel()
     for line in query_file:
         delimiter = line.find("\t")
         if delimiter == -1:
             continue
-        # wrong = make_bigram(switch_layout(line[:delimiter].lower()))  # можно сделать лучше
-        # right = make_bigram(line[delimiter + 1:-1].lower())
-        # _bigram_distance.ne_fit(wrong, right)
-        _bigram_distance.fit(bi_symbols(line[:delimiter].lower()),
-                             bi_symbols(line[delimiter + 1:-1].lower()))
+        wrong = split(line[:delimiter].lower())
+        right = split(line[delimiter + 1:-1].lower())
+        if len(wrong) != len(right):  # произошел join или split
+            continue
+        for i in range(len(wrong)):  # для каждого слова
+            _bigram_distance.fit(bi_symbols(wrong[i]), bi_symbols(right[i]))
+
     _bigram_distance.prichesat_statistiku()
 
-    _bigram_distance.store_json("statistics_2gram.json")
+    _bigram_distance.store_json(json_path)
     query_file.close()
 
 
-def generate_1gram_json():
-    query_file = open("../queries_all.txt", "r")
+def generate_1gram_json(json_path):
+    print('\033[93m' + "levenshtein generate_1gram_json()" + '\033[0m')
+    query_file = open(INPUT_FILE, "r")
     _ungram_distance = ErrorModel()
     for line in query_file:
         delimiter = line.find("\t")
         if delimiter == -1:
             continue
-        _ungram_distance.fit(line[:delimiter].lower(),
-                             line[delimiter + 1:-1].lower())
+        wrong = split(line[:delimiter].lower())
+        right = split(line[delimiter + 1:-1].lower())
+        if len(wrong) != len(right):  # произошел join или split
+            continue
+        for i in range(len(wrong)):  # для каждого слова
+            _ungram_distance.fit(wrong[i], right[i])
+
     _ungram_distance.prichesat_statistiku()
 
-    _ungram_distance.store_json("statistics_1gram.json")
+    _ungram_distance.store_json(json_path)
     query_file.close()
 
 
 if __name__ == "__main__":
-    # generate_2gram_json()
-    generate_1gram_json()
+    generate_2gram_json("statistics_2gram.json")
+    # generate_1gram_json("statistics_1gram.json")
 
     # класс, занющий статитстику по биграммам
     bigram_distance = ErrorModel()
-    bigram_distance.load_json("statistics_1gram.json")
+    bigram_distance.load_json("statistics_2gram.json")
 
     import pprint
 
