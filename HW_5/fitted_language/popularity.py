@@ -1,11 +1,12 @@
-from model_language import LanguageModel, bi_word, split
+from change_layout import switch_layout
+from model_language import LanguageModel, split, create_pair_from_list
 
 INPUT_FILE = "../queries_all.txt"
-# INPUT_FILE = "queries_all.txt"
+INPUT_FILE = "queries_all.txt"
 # INPUT_FILE = "text.txt"
 
-ungram_len = 0
-bigram_len = 0
+ungram_len = -1
+bigram_len = -1
 
 
 def generate_1gram_json(json_path):
@@ -16,7 +17,7 @@ def generate_1gram_json(json_path):
         if not line:
             continue
         delimiter = line.find("\t")
-        _ungram_pop.fit(split(line[delimiter + 1:-1].lower()))
+        _ungram_pop.fit(split(switch_layout(line[delimiter + 1:-1].lower())))
 
     _ungram_pop.prichesat_statistiku(cut_off=(1 / 1000000))  # переходим к вероятностям и отбрасываем редки слова
 
@@ -34,7 +35,10 @@ def generate_2gram_json(json_path):
         if not line:
             continue
         delimiter = line.find("\t")
-        _bigram_pop.fit(bi_word(line[delimiter + 1:-1].lower()))
+        a = create_pair_from_list(split(switch_layout(line[delimiter + 1:-1].lower())))
+        _bigram_pop.fit(a)
+
+        # _bigram_pop.fit(create_pair_from_list(split(switch_layout(line[delimiter + 1:-1].lower()))))
 
     _bigram_pop.prichesat_statistiku(cut_off=(1 / 10000000))  # переходим к вероятностям и отбрасываем редки слова
 
@@ -50,8 +54,8 @@ def info():
 
 
 if __name__ == "__main__":
-    # generate_1gram_json("statistics_1gram.json"))
-    generate_2gram_json("statistics_2gram.json")
+    generate_1gram_json("statistics_1gram.json")
+    # generate_2gram_json("statistics_2gram.json")
 
     # класс, занющий статитстику
 
@@ -65,8 +69,12 @@ if __name__ == "__main__":
     pprint.pprint(pop.dictionary, f)
     f.close()
 
-    print("word number: {}".format(len(pop.dictionary)))
+    # print("word number: {}".format(len(pop.dictionary)))
+    print(info())
+
 
 # word number ungram: 360303 - без обрезания непопулярных
-# word number bigram: 2018261 - без обрезания непопулярных
-# word number bigram: 2018261 - cut
+# word number ungram: 62367 - cut
+# word number bigram: 2018261 - без обрезания непопулярных?
+# word number bigram: 2191650 - cut 1 / 1000000
+# 2089815

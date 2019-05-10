@@ -2,6 +2,7 @@
   <dictionary name="maria">
     <words>
       <w>bigram</w>
+      <w>ungram</w>
     </words>
   </dictionary>
 </component>

@@ -2,19 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbdf15d7-5800-4009-9100-7c88df96f539" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/HW_5.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/HW_5.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/time_decorator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/maria.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/maria.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsonSchemas.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/other.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bor_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/bor_tree.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitted_language/popularity.py" beforeDir="false" afterPath="$PROJECT_DIR$/fitted_language/popularity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitted_language/statistics_1gram.json" beforeDir="false" afterPath="$PROJECT_DIR$/fitted_language/statistics_1gram.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitted_language/t.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitted_language/t.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitted_language/t1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitted_language/t1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitted_levehshtein/levinshtein.py" beforeDir="false" afterPath="$PROJECT_DIR$/fitted_levehshtein/levinshtein.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitted_levehshtein/statistics_1gram.json" beforeDir="false" afterPath="$PROJECT_DIR$/fitted_levehshtein/statistics_1gram.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitted_levehshtein/statistics_2gram.json" beforeDir="false" afterPath="$PROJECT_DIR$/fitted_levehshtein/statistics_2gram.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitted_levehshtein/t.txt" beforeDir="false" afterPath="$PROJECT_DIR$/fitted_levehshtein/t.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitted_tree/tree.json" beforeDir="false" afterPath="$PROJECT_DIR$/fitted_tree/tree.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init.py" beforeDir="false" afterPath="$PROJECT_DIR$/init.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model_error.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_error.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model_language.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_language.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pol.py" beforeDir="false" afterPath="$PROJECT_DIR$/pol.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spellchecker.py" beforeDir="false" afterPath="$PROJECT_DIR$/spellchecker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text.txt" beforeDir="false" afterPath="$PROJECT_DIR$/text.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,23 +29,24 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model_error.py">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bor_tree.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-225">
+            <state relative-caret-position="70">
+              <caret line="133" column="49" lean-forward="true" selection-start-line="133" selection-start-column="49" selection-end-line="133" selection-end-column="49" />
               <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#0#13#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model_language.py">
+        <entry file="file://$PROJECT_DIR$/pol.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="37" selection-start-line="37" selection-end-line="37" />
+            <state relative-caret-position="60">
+              <caret line="4" column="5" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -48,25 +55,15 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bor_tree.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="138" column="30" selection-start-line="138" selection-start-column="30" selection-end-line="138" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#45#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/fitted_tree/t1.txt">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/spellchecker.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/text.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
-              <folding>
-                <element signature="e#1#29#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="15">
+              <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -74,31 +71,43 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fitted_language/popularity.py">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="5" column="25" selection-start-line="5" selection-end-line="6" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/init.py">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="195">
-              <caret line="52" column="39" selection-start-line="52" selection-start-column="39" selection-end-line="52" selection-end-column="39" />
+              <caret line="13" selection-start-line="4" selection-start-column="2" selection-end-line="10" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/change_layout.py">
+        <entry file="file://$PROJECT_DIR$/model_error.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
+            <state relative-caret-position="60">
+              <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/text.txt">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pol.py">
+        <entry file="file://$PROJECT_DIR$/fitted_tree/tree.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            <state>
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -106,7 +115,41 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/fitted_levehshtein/levinshtein.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="4" column="30" selection-start-line="4" selection-end-line="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/spellchecker.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1725">
+              <caret line="120" column="11" selection-start-line="120" selection-start-column="11" selection-end-line="120" selection-end-column="11" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>variant matrix</find>
+      <find>print</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -114,25 +157,33 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/fitted_levehshtein/statistics_2gram.json" />
+        <option value="$PROJECT_DIR$/fitted_levehshtein/statistics_1gram.json" />
         <option value="$PROJECT_DIR$/model_language.py" />
-        <option value="$PROJECT_DIR$/bor_tree.py" />
-        <option value="$PROJECT_DIR$/pol.py" />
-        <option value="$PROJECT_DIR$/fitted_language/popularity.py" />
         <option value="$PROJECT_DIR$/spellchecker.py" />
+        <option value="$PROJECT_DIR$/time_decorator.py" />
+        <option value="$PROJECT_DIR$/model_error.py" />
+        <option value="$PROJECT_DIR$/text.txt" />
+        <option value="$PROJECT_DIR$/fitted_language/popularity.py" />
+        <option value="$PROJECT_DIR$/fitted_levehshtein/levinshtein.py" />
+        <option value="$PROJECT_DIR$/init.py" />
+        <option value="$PROJECT_DIR$/pol.py" />
+        <option value="$PROJECT_DIR$/bor_tree.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="x" value="89" />
     <option name="y" value="44" />
-    <option name="width" value="1246" />
-    <option name="height" value="724" />
+    <option name="width" value="1236" />
+    <option name="height" value="723" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -145,11 +196,20 @@
               <item name="HW_5" type="462c0819:PsiDirectoryNode" />
               <item name="fitted_language" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="HW_5" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HW_5" type="462c0819:PsiDirectoryNode" />
+              <item name="fitted_levehshtein" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HW_5" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HW_5" type="462c0819:PsiDirectoryNode" />
+              <item name="fitted_tree" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -171,7 +231,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.spellchecker">
+  <component name="RunManager" selected="Python.bor_tree">
     <configuration name="bor_tree" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="HW_5" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -186,6 +246,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bor_tree.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="init" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="HW_5" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/init.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -262,10 +344,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.bor_tree" />
+        <item itemvalue="Python.init" />
+        <item itemvalue="Python.pol" />
         <item itemvalue="Python.spellchecker" />
         <item itemvalue="Python.popularity" />
-        <item itemvalue="Python.pol" />
-        <item itemvalue="Python.bor_tree" />
       </list>
     </recent_temporary>
   </component>
@@ -279,12 +362,18 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1556986590338</updated>
-      <workItem from="1556986598417" duration="4628000" />
+      <workItem from="1556986598417" duration="6347000" />
+      <workItem from="1557251363425" duration="1470000" />
+      <workItem from="1557291835377" duration="14309000" />
+      <workItem from="1557311865067" duration="1717000" />
+      <workItem from="1557316924011" duration="9164000" />
+      <workItem from="1557330371441" duration="5241000" />
+      <workItem from="1557387586465" duration="11380000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4628000" />
+    <option name="totallyTimeSpent" value="49628000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -296,84 +385,141 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="60" y="0" width="1306" height="768" extended-state="6" />
+    <frame x="89" y="44" width="1236" height="723" extended-state="0" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18015873" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1789916" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" weight="0.3296875" />
-      <window_info anchor="bottom" id="Python Console" weight="0.3296875" />
-      <window_info anchor="bottom" id="Terminal" weight="0.3296875" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.36875" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3296875" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.29075631" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3953125" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3296875" />
-      <window_info anchor="right" id="SciView" />
-      <window_info anchor="right" id="Database" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3296875" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3296875" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.3296875" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/spellchecker.py</url>
+          <line>108</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/HW_5$spellchecker.coverage" NAME="spellchecker Coverage Results" MODIFIED="1556991152678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/HW_5$bor_tree.coverage" NAME="bor_tree Coverage Results" MODIFIED="1556987766699" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/HW_5$pol.coverage" NAME="pol Coverage Results" MODIFIED="1556990114292" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/HW_5$popularity.coverage" NAME="popularity Coverage Results" MODIFIED="1556990610011" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fitted_language" />
+    <SUITE FILE_PATH="coverage/HW_5$spellchecker.coverage" NAME="spellchecker Coverage Results" MODIFIED="1557326204923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HW_5$bor_tree.coverage" NAME="bor_tree Coverage Results" MODIFIED="1557414143407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HW_5$init.coverage" NAME="init Coverage Results" MODIFIED="1557410128177" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HW_5$levinshtein.coverage" NAME="levinshtein Coverage Results" MODIFIED="1557301190641" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fitted_levehshtein" />
+    <SUITE FILE_PATH="coverage/HW_5$popularity.coverage" NAME="popularity Coverage Results" MODIFIED="1557322309833" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/fitted_language" />
+    <SUITE FILE_PATH="coverage/HW_5$pol.coverage" NAME="pol Coverage Results" MODIFIED="1557409800732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/model_error.py">
+    <entry file="file://$PROJECT_DIR$/fitted_levehshtein/statistics_1gram.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-225">
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="9225">
+          <caret line="1680" column="1" selection-start-line="1680" selection-start-column="1" selection-end-line="1680" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bor_tree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="138" column="30" selection-start-line="138" selection-start-column="30" selection-end-line="138" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
+    <entry file="file://$PROJECT_DIR$/fitted_language/statistics_2gram.json">
+      <provider selected="true" editor-type-id="LargeFileEditor">
+        <state relative-caret-position="45">
+          <caret column="477" selection-start-column="477" selection-end-column="477" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/text.txt">
+    <entry file="file://$PROJECT_DIR$/fitted_levehshtein/statistics_2gram.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/change_layout.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
+        <state relative-caret-position="495">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pol.py">
+    <entry file="file://$PROJECT_DIR$/language_selector/gram_generator.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/time_decorator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="225">
+          <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model_language.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1200">
+          <caret line="81" column="34" selection-start-line="81" selection-start-column="34" selection-end-line="81" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fitted_language/t.txt">
+      <provider selected="true" editor-type-id="LargeFileEditor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fitted_language/statistics_1gram.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fitted_levehshtein/t.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/t1.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fitted_language/t1.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="LargeFileEditor">
+        <state relative-caret-position="416">
+          <caret line="35598" column="33" selection-start-line="35598" selection-start-column="33" selection-end-line="35598" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fitted_tree/t1.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/text.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fitted_tree/tree.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model_language.py">
+    <entry file="file://$PROJECT_DIR$/spellchecker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        <state relative-caret-position="1725">
+          <caret line="120" column="11" selection-start-line="120" selection-start-column="11" selection-end-line="120" selection-end-column="11" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -382,17 +528,57 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fitted_language/popularity.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="52" column="39" selection-start-line="52" selection-start-column="39" selection-end-line="52" selection-end-column="39" />
+        <state relative-caret-position="60">
+          <caret line="5" column="25" selection-start-line="5" selection-end-line="6" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/spellchecker.py">
+    <entry file="file://$PROJECT_DIR$/fitted_levehshtein/levinshtein.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
+        <state relative-caret-position="45">
+          <caret line="4" column="30" selection-start-line="4" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/init.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" selection-start-line="4" selection-start-column="2" selection-end-line="10" selection-end-column="19" />
           <folding>
-            <element signature="e#1#29#0" expanded="true" />
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model_error.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pol.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="5" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bor_tree.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="133" column="49" lean-forward="true" selection-start-line="133" selection-start-column="49" selection-end-line="133" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -3,6 +3,7 @@ import json
 
 EMPTY_LEX = "~"
 MAX_WORD_LEN = 15
+DEFAULT_ERROR = 0.5 / 100
 SPECIAL_LEX = {"_", "-", "—", "'"}
 
 
@@ -45,11 +46,11 @@ class ErrorModel:
 
     def prichesat_statistiku(self):
         for orig in self.statistics.keys():
-            example_count = 0
+            replace_count = 0
             for fix in self.statistics[orig].keys():
-                example_count += self.statistics[orig][fix]
+                replace_count += self.statistics[orig][fix]
             for fix in self.statistics[orig].keys():
-                self.statistics[orig][fix] /= example_count
+                self.statistics[orig][fix] /= replace_count
 
     def get_weighted_distance(self, a, b):
         n, m = len(a), len(b)
@@ -66,9 +67,9 @@ class ErrorModel:
                 possible_actions = np.array([(previous_row[j - 1] + int(a[j - 1] != b[i - 1])),  # change
                                              (previous_row[j] + 1),  # add
                                              (current_row[j - 1] + 1)])  # delete
-                weight_mask = np.array([self.get_gram_statistics(a[j - 1], b[i - 1]),  # change
-                                        self.get_gram_statistics(EMPTY_LEX, b[i - 1]),  # add
-                                        self.get_gram_statistics(a[j - 1], EMPTY_LEX)])  # delete
+                weight_mask = np.array([self.get_popularity(a[j - 1], b[i - 1]),  # change
+                                        self.get_popularity(EMPTY_LEX, b[i - 1]),  # add
+                                        self.get_popularity(a[j - 1], EMPTY_LEX)])  # delete
                 weighted_action = possible_actions + (1 / weight_mask)
                 action = np.argmin(weighted_action)
                 current_row[j] = weighted_action[action.item()]
@@ -77,18 +78,16 @@ class ErrorModel:
             # print(matrix)
         return current_row[n]
 
-    # return (кол-во вхождений этого элемента / кол-во всех элементов)
-    # чем больше, тем меньше вес ошибки
-    # weight = 1 / statistics
-    def get_gram_statistics(self, orig, fix):
+    # return (кол-во вхождений этой замены некоторого элемента / кол-во всех замен этого элемента)
+    def get_popularity(self, orig, fix):
         if orig == fix:  # warning! di not call in this case
             # print("error {}".format(0))
             return 1
-        if orig in self.statistics and fix in self.statistics[orig]:
+        if (orig in self.statistics) and (fix in self.statistics[orig]):
             # print("error {}".format(self.statistics[orig][fix]))
             return self.statistics[orig][fix]
         # print("error {}".format(1 / 1000))
-        return 1 / 1000  # TODO flexible (newer sow this case)
+        return DEFAULT_ERROR  # TODO flexible (newer sow this case)
 
     def _add_statistics(self, orig, fix):
         self.statistics.setdefault(orig, dict())
@@ -158,7 +157,8 @@ class ErrorModel:
 # represent word as bigrams
 def bi_symbols(string):
     if not string:
-        return ["^_"]
+        return []
+        # return ["^_"]
     new_string = ["^" + string[0]]
     for i in range(len(string) - 1):
         new_string += [string[i:i + 2]]

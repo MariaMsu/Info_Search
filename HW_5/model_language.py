@@ -9,6 +9,7 @@ MAX_WORD_LEN = 15
 
 
 def split(string):
+    string += " "
     word_list = []
     word = str()
     for char in string:
@@ -18,8 +19,6 @@ def split(string):
             if len(word) < MAX_WORD_LEN:
                 word_list += [word]
             word = str()
-    if word:
-        word_list += [word]
     return word_list
 
 
@@ -56,7 +55,7 @@ class LanguageModel:
             else:
                 self.dictionary.pop(key)
 
-    # return (кол-во вхождений / размер статистики)
+    # return (кол-во вхождений данного элемента / размер статистики)
     def get_popularity(self, item):
         if item in self.dictionary:
             return self.dictionary[item]
@@ -72,6 +71,17 @@ def bi_word(string):
     for i in range(len(word_list) - 1):
         new_list += [str(word_list[i] + word_list[i + 1])]
     return new_list
+
+
+# делает биграммы из листа слов
+def create_pair_from_list(word_list):
+    if not word_list:
+        return []
+    pair_list = ["^" + word_list[0]]
+    for i in range(len(word_list) - 1):
+        pair_list += [word_list[i] + word_list[i + 1]]
+    pair_list += [word_list[-1] + "_"]
+    return pair_list
 
 
 if __name__ == "__main__":

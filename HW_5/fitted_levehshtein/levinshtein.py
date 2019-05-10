@@ -15,12 +15,13 @@ def generate_split_json(json_path):
         delimiter = line.find("\t")
         if delimiter == -1:
             continue
+        line = switch_layout(line)
         wrong = split(line[:delimiter].lower())
         right = split(line[delimiter + 1:-1].lower())
         if len(wrong) != len(right):  # произошел join или split
             continue
         for i in range(len(wrong)):  # для каждого слова
-            _bigram_distance.fit(bi_symbols(wrong[i]), bi_symbols(right[i]))
+            _bigram_distance.fit(pa(wrong[i]), bi_symbols(right[i]))
 
     _bigram_distance.prichesat_statistiku()
 
@@ -36,6 +37,7 @@ def generate_2gram_json(json_path):
         delimiter = line.find("\t")
         if delimiter == -1:
             continue
+        line = switch_layout(line)
         wrong = split(line[:delimiter].lower())
         right = split(line[delimiter + 1:-1].lower())
         if len(wrong) != len(right):  # произошел join или split
@@ -57,6 +59,7 @@ def generate_1gram_json(json_path):
         delimiter = line.find("\t")
         if delimiter == -1:
             continue
+        line = switch_layout(line)
         wrong = split(line[:delimiter].lower())
         right = split(line[delimiter + 1:-1].lower())
         if len(wrong) != len(right):  # произошел join или split
