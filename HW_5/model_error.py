@@ -74,13 +74,13 @@ class ErrorModel:
                 action = np.argmin(weighted_action)
                 current_row[j] = weighted_action[action.item()]
             # matrix = np.vstack((matrix, [current_row]))
-            # print(a + " -- " + b)
+            # print(str(a) + " -- " + str(b))
             # print(matrix)
         return current_row[n]
 
     # return (кол-во вхождений этой замены некоторого элемента / кол-во всех замен этого элемента)
     def get_popularity(self, orig, fix):
-        if orig == fix:  # warning! di not call in this case
+        if orig == fix:  # warning! di not call in this case, return 0 manually
             # print("error {}".format(0))
             return 1
         if (orig in self.statistics) and (fix in self.statistics[orig]):
@@ -168,10 +168,10 @@ def bi_symbols(string):
 
 if __name__ == "__main__":
     error = ErrorModel()
-    # error.load_json("fitted_levehshtein/statistics_2gram.json")
+    error.load_json("fitted_levehshtein/statistics_2gram.json")
     a = "кшка"
     b = "кошка"
 
-    error.fit(bi_symbols(a), bi_symbols(b))
+    # error.fit(bi_symbols(a), bi_symbols(b))
     print(error.statistics)
-    print(error.get_weighted_distance(bi_symbols("сан"), bi_symbols("сон")))
+    print(error.get_weighted_distance(bi_symbols("ком"), bi_symbols("кот")))

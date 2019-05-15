@@ -1,7 +1,7 @@
 import pprint
 from asyncio import sleep
 
-from model_error import ErrorModel, EMPTY_LEX
+from model_error import ErrorModel, EMPTY_LEX, bi_symbols
 import json
 
 from model_language import LanguageModel
@@ -9,7 +9,8 @@ from time_decorator import timeit
 
 END_OF_WORD = "\n"
 MAX_ERROR = 4  # adjust this parameter
-ALPHA = 1000000  # adjust this parameter
+ALPHA = 100000  # adjust this parameter for bigger digits
+SMOOTHING_POW = 1 / 5
 PREFIX_PATH = ""
 
 
@@ -68,15 +69,18 @@ class BORtree:
     def find_best(self, string):
         self.best_matches = {string: 0}
         self.error_threshold = len(string) * MAX_ERROR
-        self.str = string
+        self.str = string  # в этой переменной хранится исходная строка. к ней обращается _get_best_word()
         self._get_best_word()
         for key in self.best_matches:
-            # print("way: \"{}\" - frequency: {}*ALPHA : distance: {}".
-            #       format(key, (BORtree.frequency.get_popularity(key)),
-            #              BORtree.bigram_distance.get_weighted_distance(string, key)))
+            print("way: \"{}\" - frequency: {} : distance: {}, result = {}".
+                  format(key, ALPHA * BORtree.frequency.get_popularity(key),
+                         BORtree.bigram_distance.get_weighted_distance(bi_symbols(string), bi_symbols(key)),
+                         (ALPHA * BORtree.frequency.get_popularity(key)) / \
+                         BORtree.bigram_distance.get_weighted_distance(bi_symbols(string), bi_symbols(key)) ** SMOOTHING_POW))
 
-            self.best_matches[key] = (BORtree.frequency.get_popularity(key) * ALPHA) / \
-                                     BORtree.bigram_distance.get_weighted_distance(string, key)
+            self.best_matches[key] = (ALPHA * BORtree.frequency.get_popularity(key)) / \
+                                     BORtree.bigram_distance.get_weighted_distance(bi_symbols(string), bi_symbols(key)) ** SMOOTHING_POW
+        #  чем больше score, тем лучше подходит
         return sorted(self.best_matches.items(), key=lambda kv: kv[1], reverse=True)
 
     # вставляем в словарь самых похожих слов
@@ -86,7 +90,6 @@ class BORtree:
             return
         self.best_matches[way] = min(self.best_matches[way], score)
 
-    # 2729.05 ms         new: 6308.29 ms
     def _get_best_word(self, error=0, pointer=-1, node=0, small_error=0, big_err=0):
         branches = self.tree[node][1]  # все возможные замены букв, идущие после этого префикса
         word = self.tree[node][2]  # слово этой вершины или none
@@ -140,13 +143,10 @@ class BORtree:
     @staticmethod
     def _get_error(orig, fix):
         if orig == fix:
-            # print("ERROR {}, orig \"{}\", fix \"{}\"".format(0, orig, fix))
+            print("ERROR {}, orig \"{}\", fix \"{}\"".format(0, orig, fix))
             return 0
-
-        # print("ERROR {}, orig \"{}\", fix \"{}\"".format(1 / BORtree.ungram_distance.get_gram_statistics(orig, fix),
-        #                                                  orig, fix))
-        # if (orig == "~") or (fix == "~"):
-        #     return 50
+        print("ERROR {}, orig \"{}\", fix \"{}\"".format(1 / BORtree.ungram_distance.get_popularity(orig, fix),
+                                                         orig, fix))
         return 1 / BORtree.ungram_distance.get_popularity(orig, fix)
 
 
@@ -154,7 +154,6 @@ if __name__ == "__main__":
     t = BORtree()
 
     t.load_json("fitted_tree/tree.json")
-
 
     # t.fit("вк")
     # t.fit("в")
@@ -167,17 +166,17 @@ if __name__ == "__main__":
     # for num, i in enumerate(t.tree):
     #     print("{} : {}".format(num, i))
 
-    @timeit
-    def a():
-        for j in range(500):
-            for i in t.find_best("кожка"):
-                print(i)
-        for j in range(500):
-            for i in t.find_best("кирпич"):
-                print(i)
+    # @timeit
+    # def a():
+    #     for j in range(500):
+    #         for i in t.find_best("кожка"):
+    #             print(i)
+    #     for j in range(500):
+    #         for i in t.find_best("кирпич"):
+    #             print(i)
+    #
+    #
+    # a()
 
-
-    a()
-
-    # for i in t.find_best("скота"):
-    #     print(i)
+    for i in t.find_best("ком"):
+        print(i)

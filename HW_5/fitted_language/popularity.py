@@ -3,7 +3,7 @@ from model_language import LanguageModel, split, create_pair_from_list
 
 INPUT_FILE = "../queries_all.txt"
 INPUT_FILE = "queries_all.txt"
-# INPUT_FILE = "text.txt"
+INPUT_FILE = "text.txt"
 
 ungram_len = -1
 bigram_len = -1

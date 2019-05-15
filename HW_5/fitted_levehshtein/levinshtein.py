@@ -3,7 +3,7 @@ from model_error import ErrorModel, bi_symbols, split
 
 INPUT_FILE = "../queries_all.txt"
 INPUT_FILE = "queries_all.txt"
-# INPUT_FILE = "text.txt"
+INPUT_FILE = "text.txt"
 
 
 
